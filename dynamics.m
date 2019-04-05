@@ -28,3 +28,27 @@ T = 1/2*cart_mass*delx_1^2 + 1/2*calf_mass*((-th1_1*calf_com(2)*sin(th1))^2 +(th
 1/2*thigh_mass*((-th1_1*calf_length*sin(th1)-(th2_1-th1_1)*thigh_com(2)*sin(th2-th1))^2 + (delx_1+th1_1*calf_length*cos(th1)-(th2_1-th1_1)*thigh_com(2)*cos(th2-th1))^2)+1/2*thigh_inertia*(th2_1-th1_1)^2+...
 1/2*trunk_mass*((-th1_1*calf_length*sin(th1)-(th2_1-th1_1)*thigh_length*sin(th2-th1)-(th2_1-th1_1-th3_1)*lx*sin(th2-th1-th3+th0))^2+(delx_1+th1_1*calf_length*cos(th1)-(th2_1-th1_1)*thigh_length*cos(th2-th1)+(th2_1-th1_1-th3_1)*lx*cos(th2-th1-th3+th0))^2)+1/2*trunk_inertia*(th2_1-th1_1-th3_1)^2
 
+% th1_p ＝ ?T/?th1
+th1_p = simplify(diff(T,th1))
+% th1_1_p = ?T/?th1_1
+th1_1_p = simplify(diff(T,th1_1))
+% 大致测算了一下，这个数据量太大了，且机器人半蹲状态下的模型不利于模型的线性化，不适合用于模型
+% 下一个阶段，采用模型简化方法
+%   ____________________
+%  |                    |
+%  |                    |
+%  |                    |
+%  |         _          |
+%  |        |o|         |
+%   --------| |---------
+%           | |
+%           | |
+%           |||
+%           |||
+%           |||
+%            |
+%            |
+%            |
+%            |
+%        
+        
