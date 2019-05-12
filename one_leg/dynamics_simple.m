@@ -3,21 +3,22 @@ clear
 close all
 
 
-% l1 = 0.2;
-% L1 = 0.4;
-% l2 = 0.25;
-% L2 = 0.5;
-% l3 = 0.2;
-% 
-% m0 = 0.4;
-% m1 = 0.8;
-% m2 = 5;
-% m3 = 10;
-%  
-% J1 = 0.1;
-% J2 = 1;
-% J3 = 10;
-syms l1 L1 l2 L2 l3 m0 m1 m2 m3 J1 J2 J3 g
+l1 = 0.2;
+L1 = 0.4;
+l2 = 0.25;
+L2 = 0.5;
+l3 = 0.2;
+
+m0 = 0.4;
+m1 = 0.8;
+m2 = 5;
+m3 = 10;
+ 
+J1 = 0.1;
+J2 = 1;
+J3 = 10;
+g= 9.8
+% syms l1 L1 l2 L2 l3 m0 m1 m2 m3 J1 J2 J3 g
 syms x0 th1 x1 th2
 syms x0d th1d x1d th2d
 syms x0dd th1dd x1dd th2dd
@@ -60,11 +61,11 @@ th1d_pp = ((m2*((L1 + l2)*(2*L1 + 2*l2) - 2*(L1 + l2)^2))/2)*th1d+...
     (m1*l1^2 + J1 + J2 + J3 + (m3*(L1 + L2 + l3)*(2*L1 + 2*L2 + 2*l3))/2 + (m2*(L1 + l2)*(2*L1 + 2*l2))/2)*th1dd+...
     (-l3*m3*(L1 + L2))*th2d+...
     (J3 + (l3*m3*(2*L1 + 2*L2 + 2*l3))/2)*th2dd+...
-    (l1*m1 + (m3*(2*L1 + 2*L2 + 2*l3))/2 + (m2*(2*L1 + 2*l2))/2)*x0dd                                    %% iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii这是对th2连求两次导的结果
+    (l1*m1 + (m3*(2*L1 + 2*L2 + 2*l3))/2 + (m2*(2*L1 + 2*l2))/2)*x0dd                                    %% iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii??????th2????????????????
     
 th2d_p = J3*(th1d + th2d) + l3*m3*(l3*th1d + l3*th2d + x0d - L1*th2 - L2*th2  + L1*th1d + L2*th1d)%%
 
-th2d_pp = (-l3*m3*(L1 + L2))*th2d + (J3 + l3*m3*(L1 + L2 + l3))*th1dd +(m3*l3^2 + J3)*th2dd+(l3*m3)*x0d  %% iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii这是对th1连求两次导的结果
+th2d_pp = (-l3*m3*(L1 + L2))*th2d + (J3 + l3*m3*(L1 + L2 + l3))*th1dd +(m3*l3^2 + J3)*th2dd+(l3*m3)*x0d  %% iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii??????th1????????????????
 
 % gap for th and x,not
 x0_p = simplify(diff(T,x0))
@@ -86,3 +87,10 @@ x1d_p = L1*m2 + L1*m3 + L2*m3 + l2*m2 + m2*x1d + m3*x1d ;
 x1d_p =( m2 + m3)*x1d + L1*m2 + L1*m3 + L2*m3 + l2*m2    % iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 % x1d_p =
 
+% sort the equations
+x0_left = x0_p + x0d_pp;
+vpa(x0_left,3)
+th1_left = th1_p +th1d_pp;
+vpa(th1_left,3)
+th2_left = th2_p + th2d_pp;
+vpa(th2_left)
