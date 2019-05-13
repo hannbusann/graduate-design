@@ -14,8 +14,9 @@ T2z = (L1+x1+l2)*cos(th1);
 T3x = (L1+x1+L2)*sin(th1) + l3*sin(th1+th2);
 T3z = (L1+x1+L2)*cos(th1) + l3*cos(th1+th2);
 
-COM_X = (T1x*m1 + T2x*m2 + T3x*m3) / (m0+m1+m2+m3);
-COM_Z = (T1z*m1 + T2z*m2 + T3z*m3) / (m0+m1+m2+m3); 
+COM_X = (T1x*m1 + T2x*m2 + T3x*m3) / (m0+m1+m2+m3)
+COM_Z = (T1z*m1 + T2z*m2 + T3z*m3) / (m0+m1+m2+m3)
 
 
-
+COM_X = (m3*(l3*(th1 + th2) + th1*(L1 + L2 + x1)) + l1*m1*th1 + m2*th1*(L1 + l2 + x1))/(m0 + m1 + m2 + m3)
+collect(COM_X,th1)

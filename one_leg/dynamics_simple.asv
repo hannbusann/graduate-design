@@ -151,33 +151,14 @@ C = [1 0 0 0 0 0 0 0;
      0 0 1 0 0 0 0 0;
      0 0 0 0 1 0 0 0;
      0 0 0 0 0 0 1 0]
- D= [0 0;0 0;0 0;0 0];
+ D= [0 0;];
 Qc= [B A*B A^2*B A^3*B A^4*B A^5*B A^6*B A^7*B]
 Qo= [C; C*A; C*A^2; C*A^3;C*A^4;C*A^5;C*A^6;C*A^7]
 rank(Qc)
 rank(Qo)
 
 sys = ss(A,B,C,D)
-Ts =0.01;
-sys_discrete =c2d(sys,Ts)
-
-F = sys_discrete.A
-G = sys_discrete.B
-Cd =sys_discrete.C
-D =0
-
-disp(rank(ctrb(sys_discrete)));
-disp(rank(obsv(sys_discrete)));
-
-% pzmap(sys_discrete) % unstable 
-% step(sys_discrete)  % 
-
-
-[x,y]= eig(A)
-
-% 
-% P =  [-2.34+1.59j -2.34-1.59j -28.3 -28.3 -28.3 -28.3];
-% K = acker(A,B,P)
+    
 %     
 % COM_X = (m3*(l3*(th1 + th2) + th1*(L1 + L2 )) + l1*m1*th1 + m2*th1*(L1 + l2 ))/(m0 + m1 + m2 + m3)
 % vpa(collect(COM_X,th1),3)
