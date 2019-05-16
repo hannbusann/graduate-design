@@ -42,6 +42,7 @@ V3 = m3*g*((L1+x1+L2)*cos(th1) + l3*cos(th1+th2));
 T = T0+T1+T2+T3-V0-V1-V2-V3;
 
 
+
 th1_p = simplify(diff(T,th1))
 th2_p = simplify(diff(T,th2))
 
