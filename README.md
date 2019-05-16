@@ -8,3 +8,6 @@
 - 跑ros节点需要使用这句`rosrun rosserial_python serial_node.py /dev/ttyUSB0`
 - 单个消息的信息收取和处理用这里`/home/fw/lab/catkin_ws`的IMU_listen
 
+
+# 模型的使用
+- 由此看到系统虽然是完全能控系统，但是系统是不完全能观的，这直接会导致观测器无法

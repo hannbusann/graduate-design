@@ -148,23 +148,28 @@ B = [0 0;
 %      0 0 0 0 0.926 0 0 0;
 %      0 0 1 0 0 0 1 0;]
 C = [1 0 0 0 0 0 0 0;
+     0 1 0 0 0 0 0 0;
      0 0 1 0 0 0 0 0;
+     0 0 0 1 0 0 0 0;
      0 0 0 0 1 0 0 0;
-     0 0 0 0 0 0 1 0]
- D= [0 0;0 0;0 0;0 0];
+     0 0 0 0 0 1 0 0;
+     0 0 0 0 0 0 1 0;
+     0 0 0 0 0 0 0 1]
+D = [0 0;0 0;0 0;0 0;0 0 ;0 0;0 0;0 0];
 Qc= [B A*B A^2*B A^3*B A^4*B A^5*B A^6*B A^7*B]
 Qo= [C; C*A; C*A^2; C*A^3;C*A^4;C*A^5;C*A^6;C*A^7]
 rank(Qc)
 rank(Qo)
 
+
+%for discrete
 sys = ss(A,B,C,D)
 Ts =0.01;
 sys_discrete =c2d(sys,Ts)
-
 F = sys_discrete.A
 G = sys_discrete.B
 Cd =sys_discrete.C
-D =0
+D =[0 0;0 0;0 0;0 0;0 0;0 0;0 0;0 0]
 
 disp(rank(ctrb(sys_discrete)));
 disp(rank(obsv(sys_discrete)));
@@ -173,14 +178,31 @@ disp(rank(obsv(sys_discrete)));
 % step(sys_discrete)  % 
 
 
-[x,y]= eig(A)
+P =  [-2.34+1.59j -2.34-1.59j -28.0 -28.1 -28.2 -28.3 -28.4 -28.5 ];
+% K = acker(A,B,P)
+K = place(A,B,P)
+AA = A-B*K;
+feedback_sys = ss(AA,B,C,D);
+step(feedback_sys);
 
 % 
-% P =  [-2.34+1.59j -2.34-1.59j -28.3 -28.3 -28.3 -28.3];
-% K = acker(A,B,P)
+% Pc= [-7.02+5j  -7.02-5j  -28  -29  -27  -28.1  -29.0  -29.1 ];    % poles of controller
+% L =C\eye(3)
+% A_end = A-B*K -L*C;
+% B_end = L;
+% C_end = -K;
+% D_end = D;
+% close_sys = ss(A_end, B_end, C_end,D_end);
+% step(close_sys)
+% 
+% 
+
+
+
 %     
 % COM_X = (m3*(l3*(th1 + th2) + th1*(L1 + L2 )) + l1*m1*th1 + m2*th1*(L1 + l2 ))/(m0 + m1 + m2 + m3)
 % vpa(collect(COM_X,th1),3)
 % 
 % COM_Z = (m3*(l3 + (L1 + L2 + x1)) + l1*m1 + m2*(L1 + l2 + x1))/(m0 + m1 + m2 + m3)
 % vpa(COM_Z,3)
+% 
