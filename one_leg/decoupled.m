@@ -60,8 +60,9 @@ A = [0 1 0 0;
  rank(Qo)        % observable 
  sys_decoupled = ss(A,B,C,D)
 
- aim_poles = [ -2.34+1.59j -2.34-1.59j -28.0 -28.1]
+ aim_poles = [ -2.34+1.59j -2.34-1.59j -15.0 -15.1]
  K = place(A,B,aim_poles)
  A = A - B*K;
  sys_feedback = ss(A,B,C,D);
  step(sys_feedback)
+A
