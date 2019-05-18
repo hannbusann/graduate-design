@@ -179,7 +179,7 @@ disp(rank(obsv(sys_discrete)));
 % step(sys_discrete)  % 
 
 
-P =  [-2.34+1.59j -2.34-1.59j -28.0 -28.1 -28.2 -28.3 -28.4 -28.5 ];
+P =  [-2+2j -2-2j -28.0 -28.1 -28.2 -28.3 -28.4 -28.5 ];
 % K = acker(A,B,P)
 K = place(A,B,P)
 AA = A-B*K;

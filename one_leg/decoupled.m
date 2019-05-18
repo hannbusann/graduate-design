@@ -10,7 +10,7 @@ m2 = 5
 m3 = 10
 l2 = 0.5
 L2 = 0.8
-l3 = 0.2
+l3 = 0.
 J2 = 3
 J3 = 10
 g = 9.8
@@ -42,4 +42,26 @@ kuku_remain = - T - g*l3*m3*th1 - g*l3*m3*th2
 
 a = [th1dd_xiang_haha , th2dd_xiang_haha ; th1dd_xiang_kuku, th2dd_xiang_kuku];
 b = [haha_remain ;kuku_remain];
-a\b
+vpa(a\b,3)
+
+% state vector is  X = [th1 th1d th2 th2d]
+A = [0 1 0 0;
+     29.5 0 0 0;
+     0 0 0 1;
+     0 0 -29.5 0]
+ B = [0 ; -0.286;0;0.386];
+ C = [1 0 0 0;   % foot angle 
+      1 0 1 0];  % upper trunk gesture angle
+  
+  D = [0 ; 0 ]
+ Qc= [B A*B A^2*B A^3*B ];
+ rank(Qc)        % controllable 
+ Qo = [C; C*A; C*A^2; C*A^3];
+ rank(Qo)        % observable 
+ sys_decoupled = ss(A,B,C,D)
+
+ aim_poles = [ -2.34+1.59j -2.34-1.59j -28.0 -28.1]
+ K = place(A,B,aim_poles)
+ A = A - B*K;
+ sys_feedback = ss(A,B,C,D);
+ step(sys_feedback)
