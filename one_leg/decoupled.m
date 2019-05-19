@@ -62,7 +62,7 @@ A = [0 1 0 0;
 
  aim_poles = [ -2.34+1.59j -2.34-1.59j -15.0 -15.1]
  K = place(A,B,aim_poles)
-%  A = A - B*K;
-%  sys_feedback = ss(A,B,C,D);
-%  step(sys_feedback)
-%  A
+ AA = A - B*K;
+ sys_feedback = ss(AA,B,C,D);
+ step(sys_feedback)
+K
