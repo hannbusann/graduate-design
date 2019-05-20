@@ -10,10 +10,11 @@ m2 = 5
 m3 = 10
 l2 = 0.5
 L2 = 0.8
-l3 = 0.
-J2 = 3
-J3 = 10
+l3 = 0.2
+J2 = 2
+J3 = 2.5
 g = 9.8
+
 
 syms th1 th1d th1dd 
 syms th2 th2d th2dd
@@ -26,7 +27,8 @@ x2dd = x1dd+l2*th1dd
 
 % haha = -th1dd*J2 - T+(m2+m3)*g*l2*th1+m3*g*(L2-l2)*th1+(m1*x1dd+m2*x2dd)*(L2-l2)+m1*x1dd*l2
 % haha = simplify(haha)
-% collect(haha,th2dd)
+% a = collect(haha,th2dd)
+
 th1dd_xiang_haha = ((m2*(l2 - (l2*m2 + m3*(L2 + l3))/(m1 + m2 + m3)) - (m1*(l2*m2 + m3*(L2 + l3)))/(m1 + m2 + m3))*(L2 - l2) - J2 - (l2*m1*(l2*m2 + m3*(L2 + l3)))/(m1 + m2 + m3))
 th2dd_xiang_haha = -(l3*m3*(L2*m1 + L2*m2 - l2*m2))/(m1 + m2 + m3)
 haha_remain = T - g*l2*m2*th1 - L2*g*m3*th1
@@ -40,16 +42,16 @@ th1dd_xiang_kuku = - J3 - (l3*m3*(L2*m1 + L2*m2 - l2*m2 + l3*m1 + l3*m2))/(m1 + 
 th2dd_xiang_kuku = - J3 - (l3*m3*(l3*m1 + l3*m2))/(m1 + m2 + m3)
 kuku_remain = - T - g*l3*m3*th1 - g*l3*m3*th2
 
-a = [th1dd_xiang_haha , th2dd_xiang_haha ; th1dd_xiang_kuku, th2dd_xiang_kuku];
-b = [haha_remain ;kuku_remain];
+a = [th1dd_xiang_haha , th2dd_xiang_haha ; th1dd_xiang_kuku, th2dd_xiang_kuku]
+b = [haha_remain ;kuku_remain]
 vpa(a\b,3)
 
 % state vector is  X = [th1 th1d th2 th2d]
 A = [0 1 0 0;
-     29.5 0 0 0;
+     41.0 0 -0.71 0;
      0 0 0 1;
-     0 0 -29.5 0]
- B = [0 ; -0.286;0;0.386];
+     - 37.2 0 8.2 0]
+ B = [0 ; - 0.441;0;0.859];
  C = [1 0 0 0;   % foot angle 
       1 0 1 0];  % upper trunk gesture angle
   
