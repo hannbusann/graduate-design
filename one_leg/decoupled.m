@@ -6,13 +6,13 @@ close all
 
 % syms m1 m2 m3 l2 L2 l3 J2 J3 g
 m1 = 0.4;
-m2 = 5
-m3 = 10
-l2 = 0.5
-L2 = 0.8
+m2 = 7.7
+m3 = 25.1
+l2 = 0.61
+L2 = 0.88
 l3 = 0.2
-J2 = 2
-J3 = 2.5
+J2 = 0.2761
+J3 = 1             %0.3108
 g = 9.8
 
 
@@ -44,16 +44,24 @@ kuku_remain = - T - g*l3*m3*th1 - g*l3*m3*th2
 
 a = [th1dd_xiang_haha , th2dd_xiang_haha ; th1dd_xiang_kuku, th2dd_xiang_kuku]
 b = [haha_remain ;kuku_remain]
-vpa(a\b,3)
+ST = vpa(a\b,3)
 
 % state vector is  X = [th1 th1d th2 th2d]
+A21 = diff(ST(1),th1)
 A = [0 1 0 0;
-     41.0 0 -0.71 0;
+     288 0  -16.9 0;
      0 0 0 1;
-     - 37.2 0 8.2 0]
- B = [0 ; - 0.441;0;0.859];
+     -334 0  61.4 0]
+ B = [0 ;-1.5 ;0;2.75]
+
+
+% A = [0 1 0 0;
+%      317 0  -44.8 0;
+%      0 0 0 1;
+%      -438 0  163 0]
+%  B = [0 ;-2.29 ;0;5.6]
  C = [1 0 0 0;   % foot angle 
-      1 0 1 0];  % upper trunk gesture angle
+      0 0 1 0];  % upper trunk gesture angle
   
   D = [0 ; 0 ]
  Qc= [B A*B A^2*B A^3*B ];
@@ -62,9 +70,10 @@ A = [0 1 0 0;
  rank(Qo)        % observable 
  sys_decoupled = ss(A,B,C,D)
 
- aim_poles = [ -2.34+1.59j -2.34-1.59j -15.0 -15.1]
- K = place(A,B,aim_poles)
+%  aim_poles = [ -2.34+1.59j -2.34-1.59j -40.0 -40.1]
+ aim_poles = [ -3.5+2j -3.5-2j -15 -15.1]
+ K = acker(A,B,aim_poles)
  AA = A - B*K;
  sys_feedback = ss(AA,B,C,D);
  step(sys_feedback)
-K
+ K
