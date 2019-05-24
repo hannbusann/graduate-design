@@ -77,3 +77,14 @@ A = [0 1 0 0;
  sys_feedback = ss(AA,B,C,D);
  step(sys_feedback)
  K
+ 
+ now = [-0.1 0 0 0]' 
+ for i = 1:100
+    now_d =-B*( K* now)+ (A*now)
+    now= now+ now_d*0.02;
+    pp(1:4,i) = now;
+    pp(5,i) = i*0.02;
+ end
+ plot(pp(5,:),pp(1,:));
+ hold on
+ plot(pp(5,:),pp(3,:));
