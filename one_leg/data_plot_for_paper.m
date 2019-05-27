@@ -1,9 +1,9 @@
 clc
 clear
 close all
-a = textread('data_J3_0.3108.txt');
-b = textread('data_J3_1.txt')
-c = textread('data_J3_2.txt');
+a = textread('data_l3_0.2.txt');
+b = textread('data_l3_0.1.txt')
+c = textread('data_l3_0.5.txt');
 
 plot(a(5,:),a(1,:));
  hold on
