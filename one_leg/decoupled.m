@@ -12,7 +12,7 @@ l2 =  0.61 % 0.3466 %0.2050  %0.61
 L2 =  0.88 % 0.5   %0.3   %0.88
 l3 = 0.2
 J2 = 0.2761
-J3 = 2% 0.3108
+J3 = 0.3108% 0.3108
 g = 9.8
 
 
@@ -77,15 +77,16 @@ A = [0 1 0 0;
  sys_decoupled = ss(A,B,C,D)
 
 %  aim_poles = [ -2.34+1.59j -2.34-1.59j -40.0 -40.1]
- aim_poles = [ -3.5+2j -3.5-2j -15 -15.1]
+ aim_poles = [ -3.5+1.5j -3.5-1.5j -15 -15.1]
  K = acker(A,B,aim_poles)
  AA = A - B*K;
  sys_feedback = ss(AA,B,C,D);
  step(sys_feedback)
  K
  
- now = [-0.1 0 0 0]' 
+ now = [-0.1 0 0.1 0]' 
  for i = 1:100
+     Torque(i) = -K* now;
     now_d =-B*( K* now)+ (A*now);
     now= now+ now_d*0.02;
     pp(1:4,i) = now;
@@ -94,5 +95,7 @@ A = [0 1 0 0;
  plot(pp(5,:),pp(1,:));
  hold on
  plot(pp(5,:),pp(3,:));
- save('data_nothing.txt', 'pp' , '-ascii')
+%  save('data_nothing.txt', 'pp' , '-ascii')
  collect(ST(2),T)
+ figure(2)
+ plot(Torque)
