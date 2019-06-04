@@ -1,0 +1,12 @@
+<launch>
+	<param name="robot_description" textfile="$(find single_leg_description)/urdf/single_leg.urdf" />
+
+	<!-- 设置GUI参数，显示关节控制插件 -->
+	<param name="use_gui" value="true"/>
+	
+	<!-- 运行robot_state_publisher节点，发布tf  -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+	
+	<!-- 运行rviz可视化界面 -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find single_leg_description)/config/single_leg.rviz" required="true" />
+</launch>
