@@ -11,8 +11,8 @@ m3 = 25.1
 l2 =  0.61 % 0.3466 %0.2050  %0.61
 L2 =  0.88 % 0.5   %0.3   %0.88
 l3 = 0.2
-J2 = 0.2761
-J3 = 0.3108% 0.3108
+J2 = 0.2761 %0.2761
+J3 = 0.3108% 0.3108 
 g = 9.8
 
 
@@ -84,18 +84,32 @@ A = [0 1 0 0;
  step(sys_feedback)
  K
  
- now = [-0.1 0 0.1 0]' 
+ now = [-0.1 0 0 0]' 
  for i = 1:100
      Torque(i) = -K* now;
     now_d =-B*( K* now)+ (A*now);
     now= now+ now_d*0.02;
     pp(1:4,i) = now;
     pp(5,i) = i*0.02;
+    pp(6,i) = -(l2*m2*sin(now(1)) + m3*(L2*sin(now(1))+l3*sin(now(1)+now(3))))/(m1+m2+m3)
  end
+%  subplot(2,1,1)
  plot(pp(5,:),pp(1,:));
  hold on
  plot(pp(5,:),pp(3,:));
-%  save('data_nothing.txt', 'pp' , '-ascii')
- collect(ST(2),T)
- figure(2)
- plot(Torque)
+ 
+ hold on
+ plot(pp(5,:),pp(6,:))
+ pout = pp'
+ save('data_simulation_2.txt', 'pout' , '-ascii')
+% tok =textread('../data3/torque_data.txt');
+% plot(tok(24:102,4)-tok(24,4),tok(24:102,1))
+% hold on
+% plot(tok(24:102,4)-tok(24,4),tok(24:102,2))
+ 
+collect(ST(2),T)
+% subplot(2,1,2)
+%  plot(pp(5,:),Torque)
+%  hold on 
+%  plot(tok(24:102,4)-tok(24,4),-tok(24:102,3))
+ 
